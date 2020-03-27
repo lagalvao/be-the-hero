@@ -29,13 +29,19 @@ export default function Profile() {
 
     async function handleDeleteIncident(id){
         try{
-            await api.delete(`incidents/${id}`, {
-                headers: {
-                    Authorization: ongId,
-                }
-            });
-
-        setIncidents(incidents.filter(incident => incident.id !== id));    
+            if(window.confirm('Deseja realmente deletar este registro?')){
+                await api.delete(`incidents/${id}`, {
+                    headers: {
+                        Authorization: ongId,
+                    }
+                });
+                alert("Exclusao realizada");
+    
+            setIncidents(incidents.filter(incident => incident.id !== id));   
+            }else {
+                alert('Exclusão não realizada');
+            }
+             
         }catch{
             alert('Erro ao deletar o caso, Tente novamente!');
         }
